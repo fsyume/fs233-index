@@ -1,53 +1,51 @@
 <template>
   <div class="demo-image__lazy">
-    <el-image v-for="url in urls" :key="url" :src="url" lazy />
+    <el-image
+      v-for="url in urls"
+      :key="url"
+      :src="url"
+      :preview-src-list="urls"
+      :initial-index="urls.indexOf(url)"
+      lazy
+    />
     你已到达世界尽头
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue'
-import { ElNotification,ElMessageBox } from 'element-plus'
+import { onMounted } from "vue";
+import { ElNotification, ElMessageBox } from "element-plus";
 
 onMounted(() => {
-  open()
-})
+  open();
+});
 
-console.log("11111")
-
-var urls = fortxt(7)
+var urls = fortxt(189);
 
 function fortxt(num) {
-  var t1 = "https://i.hifsyu.me/pixiv-webp/pixiv_r18_"
-  var t2 = ".webp"
+  var t1 = "https://i.hifsyu.me/pixiv-webp/pixiv_r18_";
+  var t2 = ".webp";
 
-  var urls = []
+  var urls = [];
 
   for (var i = 1; i <= num; i++) {
+    var t3 = t1 + String(i) + t2;
 
-    var t3 = t1 + String(i) + t2
+    urls.push(t3);
 
-    urls.push(t3)
-
-    console.log(t3)
+    console.log(t3);
   }
 
-  return urls
+  return urls;
 }
 
 const open = () => {
-  console.log("弹窗弹出")
+  console.log("弹窗弹出");
   ElNotification({
-    title: 'Tips',
-    message: '非原图，图片皆为webp格式',
-  })
-
-  ElMessageBox.alert('图片存放于国外会有点慢，请耐心等待', 'Title', {
-    confirmButtonText: 'OK'
-  })
-
-}
-
+    title: "Tip",
+    message: "非原图，图片皆为webp格式",
+  });
+};
 </script>
 
 <style scoped>
