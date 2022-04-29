@@ -1,26 +1,59 @@
 <template>
-  <div class="demo-image__lazy">
-    <el-image
-      v-for="url in urls"
-      :key="url"
-      :src="url"
-      :preview-src-list="urls"
-      :initial-index="urls.indexOf(url)"
-      lazy
-    />
-    你已到达世界尽头
-  </div>
+  <el-row :gutter="10">
+    <el-col :xs="24" :md="8" :lg="8">
+      <div class="demo-image__lazy">
+        <el-image
+          v-for="url in urls"
+          :key="url"
+          :src="url"
+          :preview-src-list="urls"
+          :initial-index="urls.indexOf(url)"
+          lazy
+        />
+      </div>
+    </el-col>
+
+    <el-col :xs="0" :md="8" :lg="8" :xl="8">
+      <div class="demo-image__lazy">
+        <el-image
+          v-for="url in urlsA"
+          :key="url"
+          :src="url"
+          :preview-src-list="urls"
+          :initial-index="urls.indexOf(url)"
+          lazy
+        />
+      </div>
+    </el-col>
+
+    <el-col :xs="0" :md="8" :lg="8" :xl="8">
+      <div class="demo-image__lazy">
+        <el-image
+          v-for="url in urlsB"
+          :key="url"
+          :src="url"
+          :preview-src-list="urls"
+          :initial-index="urls.indexOf(url)"
+          lazy
+        />
+      </div>
+    </el-col>
+  </el-row>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { ElNotification, ElMessageBox } from "element-plus";
+import { ElNotification } from "element-plus";
 
 onMounted(() => {
   open();
 });
 
-var urls = fortxt(189);
+var urls = shuffle(fortxt(189));
+
+var urlsA = shuffle(fortxt(189));
+
+var urlsB = shuffle(fortxt(189));
 
 function fortxt(num) {
   var t1 = "https://i.hifsyu.me/pixiv-webp/pixiv_r18_";
@@ -37,6 +70,21 @@ function fortxt(num) {
   }
 
   return urls;
+}
+
+// 洗牌卡算法
+function shuffle(array) {
+  let copy = [];
+
+  let len = array.length;
+
+  while (len) {
+    //随机生成 0  到  n-1 的数字 , 作为数组下标
+    let index = Math.floor(Math.random() * len--);
+    //把随机到的数字放入新数组中,并从原数组中删除
+    copy.push(array.splice(index, 1)[0]);
+  }
+  return copy;
 }
 
 const open = () => {
@@ -58,6 +106,7 @@ const open = () => {
   display: block;
   min-height: 200px;
   margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 .demo-image__lazy .el-image:last-child {
