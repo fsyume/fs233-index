@@ -45,31 +45,36 @@
       </ul>
     </el-col>
   </el-row>
-  <div>你已经到达世界尽头</div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import { ElNotification } from "element-plus";
 
+// 生命周期函数
 onMounted(() => {
   open();
 });
 
-var urls = ref(shuffle(fortxt(100)))
+var urls = ref(shuffle(fortxt()))
 
-var urlsA = ref(shuffle(fortxt(100)))
+var urlsA = ref(shuffle(fortxt()))
 
-var urlsB = ref(shuffle(fortxt(100)))
+var urlsB = ref(shuffle(fortxt()))
 
+// 底部加载
 const load = () => {
   console.log("Yes")
-  urls.value.push(shuffle(fortxt(100)))
-  urlsA.value.push(shuffle(fortxt(100)))
-  urlsB.value.push(shuffle(fortxt(100)))
+  urls.value.push(shuffle(fortxt()))
+  urlsA.value.push(shuffle(fortxt()))
+  urlsB.value.push(shuffle(fortxt()))
 }
 
-function fortxt(num) {
+// 涩图链接数组生成
+function fortxt() {
+  // 总涩图数
+  var num = 262
+
   var t1 = "https://i.hifsyu.me/pixiv-webp/pixiv_r18_";
   var t2 = ".webp";
 
