@@ -1,6 +1,7 @@
 <template>
   <el-row :gutter="10">
     <el-col :xs="24" :md="8" :lg="8">
+    <ul v-infinite-scroll="load">
       <div class="demo-image__lazy">
         <el-image
           v-for="url in urls"
@@ -11,9 +12,11 @@
           lazy
         />
       </div>
+    </ul>
     </el-col>
 
     <el-col :xs="0" :md="8" :lg="8" :xl="8">
+    <ul v-infinite-scroll="load">
       <div class="demo-image__lazy">
         <el-image
           v-for="url in urlsA"
@@ -24,9 +27,11 @@
           lazy
         />
       </div>
+      </ul>
     </el-col>
 
     <el-col :xs="0" :md="8" :lg="8" :xl="8">
+    <ul v-infinite-scroll="load">
       <div class="demo-image__lazy">
         <el-image
           v-for="url in urlsB"
@@ -37,23 +42,32 @@
           lazy
         />
       </div>
+      </ul>
     </el-col>
   </el-row>
+  <div>你已经到达世界尽头</div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { ElNotification } from "element-plus";
 
 onMounted(() => {
   open();
 });
 
-var urls = shuffle(fortxt(189));
+var urls = ref(shuffle(fortxt(100)))
 
-var urlsA = shuffle(fortxt(189));
+var urlsA = ref(shuffle(fortxt(100)))
 
-var urlsB = shuffle(fortxt(189));
+var urlsB = ref(shuffle(fortxt(100)))
+
+const load = () => {
+  console.log("Yes")
+  urls.value.push(shuffle(fortxt(100)))
+  urlsA.value.push(shuffle(fortxt(100)))
+  urlsB.value.push(shuffle(fortxt(100)))
+}
 
 function fortxt(num) {
   var t1 = "https://i.hifsyu.me/pixiv-webp/pixiv_r18_";
@@ -66,7 +80,6 @@ function fortxt(num) {
 
     urls.push(t3);
 
-    console.log(t3);
   }
 
   return urls;
@@ -84,14 +97,14 @@ function shuffle(array) {
     //把随机到的数字放入新数组中,并从原数组中删除
     copy.push(array.splice(index, 1)[0]);
   }
-  return copy;
+  return copy.slice(0,1);
 }
 
 const open = () => {
   console.log("弹窗弹出");
   ElNotification({
     title: "Tip",
-    message: "非原图，图片皆为webp格式",
+    message: "非原图，图片皆为webp格式，IOS设备无法显示",
   });
 };
 </script>
@@ -111,5 +124,10 @@ const open = () => {
 
 .demo-image__lazy .el-image:last-child {
   margin-bottom: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 </style>
