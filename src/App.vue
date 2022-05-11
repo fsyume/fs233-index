@@ -22,8 +22,8 @@
           v-for="url in urlsA"
           :key="url"
           :src="url"
-          :preview-src-list="urls"
-          :initial-index="urls.indexOf(url)"
+          :preview-src-list="urlsA"
+          :initial-index="urlsA.indexOf(url)"
           lazy
         />
       </div>
@@ -37,8 +37,8 @@
           v-for="url in urlsB"
           :key="url"
           :src="url"
-          :preview-src-list="urls"
-          :initial-index="urls.indexOf(url)"
+          :preview-src-list="urlsB"
+          :initial-index="urlsB.indexOf(url)"
           lazy
         />
       </div>
