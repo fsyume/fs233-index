@@ -146,8 +146,10 @@ function shuffle(array) {
 const open = () => {
   console.log("弹窗弹出");
   ElNotification({
+    dangerouslyUseHTMLString: true,
     title: "Tip",
-    message: "原图，巨大流量警告！！！",
+    message: "<div style='color:red'>原图，巨大流量警告！！！</div>",
+    duration: 0
   });
 };
 </script>
