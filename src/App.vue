@@ -2,13 +2,15 @@
   <el-row :gutter="10">
     <el-col :xs="24" :md="8" :lg="8">
     <ul v-infinite-scroll="load">
-      <div class="demo-image__lazy">
+      <div class="demo-image__lazy" v-loading="loading">
         <el-image
+          v-loading="loading"
           v-for="url in urls"
           :key="url"
           :src="url"
           :preview-src-list="urls"
           :initial-index="urls.indexOf(url)"
+          @load="loadingfun()"
           lazy
         />
       </div>
@@ -19,11 +21,13 @@
     <ul v-infinite-scroll="load">
       <div class="demo-image__lazy">
         <el-image
+          v-loading="loading"
           v-for="url in urlsA"
           :key="url"
           :src="url"
           :preview-src-list="urlsA"
           :initial-index="urlsA.indexOf(url)"
+          @load="loadingfun"
           lazy
         />
       </div>
@@ -34,11 +38,13 @@
     <ul v-infinite-scroll="load">
       <div class="demo-image__lazy">
         <el-image
+          v-loading="loading"
           v-for="url in urlsB"
           :key="url"
           :src="url"
           :preview-src-list="urlsB"
           :initial-index="urlsB.indexOf(url)"
+          @load="loadingfun"
           lazy
         />
       </div>
@@ -50,24 +56,56 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import { ElNotification } from "element-plus";
+import axios from "axios"
 
 // 生命周期函数
 onMounted(() => {
-  open();
+  open()
+  piclist(urls)
+  piclist(urlsA)
+  piclist(urlsB)
 });
 
-var urls = ref(shuffle(fortxt()))
+var loading = ref(true)
 
-var urlsA = ref(shuffle(fortxt()))
+var urls = ref([])
 
-var urlsB = ref(shuffle(fortxt()))
+var urlsA = ref([])
+
+var urlsB = ref([])
+
+
+function loadingfun(){
+  loading.value = false
+}
 
 // 底部加载
 const load = () => {
   console.log("Yes")
-  urls.value.push(shuffle(fortxt()))
-  urlsA.value.push(shuffle(fortxt()))
-  urlsB.value.push(shuffle(fortxt()))
+  addpic(urls)
+  addpic(urlsA)
+  addpic(urlsB)
+}
+
+// 非R18数组
+function piclist(urllist){
+  axios.get("https://i.fs233.cc/setu?type=json&num=10").then(
+    (res)=>{
+      console.log(res.data.msg)
+      urllist.value = res.data.msg
+      console.log(urllist)
+    }
+  )
+}
+
+// 底部加载增加图片
+function addpic(urllist){
+  axios.get("https://i.fs233.cc/setu?type=json&num=10").then(
+    (res)=>{
+      console.log(res.data.msg)
+      urllist.value.push(res.data.msg[1])
+    }
+  )
 }
 
 // 涩图链接数组生成
@@ -109,7 +147,7 @@ const open = () => {
   console.log("弹窗弹出");
   ElNotification({
     title: "Tip",
-    message: "非原图，图片皆为webp格式，IOS设备无法显示",
+    message: "原图，巨大流量警告！！！",
   });
 };
 </script>
