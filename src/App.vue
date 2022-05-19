@@ -1,7 +1,11 @@
 <template>
   <el-row :gutter="10">
     <el-col :xs="24" :md="8" :lg="8">
-    <ul v-infinite-scroll="load">
+    <ul 
+    v-infinite-scroll="load"
+    infinite-scroll-disabled
+    infinite-scroll-delay="2000"
+    >
       <div class="demo-image__lazy">
         <el-image
           v-loading="loading"
@@ -18,7 +22,11 @@
     </el-col>
 
     <el-col :xs="0" :md="8" :lg="8" :xl="8">
-    <ul v-infinite-scroll="load">
+    <ul 
+    v-infinite-scroll="load"
+    infinite-scroll-disabled
+    infinite-scroll-delay="2000"
+    >
       <div class="demo-image__lazy">
         <el-image
           v-loading="loading"
@@ -35,7 +43,11 @@
     </el-col>
 
     <el-col :xs="0" :md="8" :lg="8" :xl="8">
-    <ul v-infinite-scroll="load">
+    <ul 
+    v-infinite-scroll="load"
+    infinite-scroll-disabled
+    infinite-scroll-delay="2000"
+    >
       <div class="demo-image__lazy">
         <el-image
           v-loading="loading"
@@ -68,6 +80,8 @@ onMounted(() => {
 
 var loading = ref(true)
 
+var loaddisabled = ref(false)
+
 var urls = ref([])
 
 var urlsA = ref([])
@@ -80,29 +94,26 @@ function loadingfun(){
 }
 
 // 底部加载
-const load = () => {
-  console.log("Yes")
+function load(){
+  console.log("底部加载")
   addpic(urls)
-  addpic(urlsA)
-  addpic(urlsB)
+  // addpic(urlsA)
+  // addpic(urlsB)
 }
 
 // 非R18数组
 function piclist(urllist){
-  axios.get("https://i.fs233.cc/setu?type=json&num=10").then(
+  axios.get("https://i.fs233.cc/setu?type=json&num=20").then(
     (res)=>{
-      console.log(res.data.msg)
       urllist.value = res.data.msg
-      console.log(urllist)
     }
   )
 }
 
 // 底部加载增加图片
 function addpic(urllist){
-  axios.get("https://i.fs233.cc/setu?type=json&num=10").then(
+  axios.get("https://i.fs233.cc/setu?type=json&num=20").then(
     (res)=>{
-      console.log(res.data.msg)
       urllist.value.push(res.data.msg[1])
     }
   )
