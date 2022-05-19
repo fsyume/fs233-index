@@ -2,7 +2,7 @@
   <el-row :gutter="10">
     <el-col :xs="24" :md="8" :lg="8">
     <ul v-infinite-scroll="load">
-      <div class="demo-image__lazy" v-loading="loading">
+      <div class="demo-image__lazy">
         <el-image
           v-loading="loading"
           v-for="url in urls"
