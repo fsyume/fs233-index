@@ -3,8 +3,7 @@
     <el-col :xs="24" :md="8" :lg="8">
     <ul 
     v-infinite-scroll="load"
-    infinite-scroll-disabled
-    infinite-scroll-delay="2000"
+    infinite-scroll-distance="1000"
     >
       <div class="demo-image__lazy">
         <el-image
@@ -23,9 +22,8 @@
 
     <el-col :xs="0" :md="8" :lg="8" :xl="8">
     <ul 
-    v-infinite-scroll="load"
-    infinite-scroll-disabled
-    infinite-scroll-delay="2000"
+    v-infinite-scroll="loadA"
+    infinite-scroll-distance="1000"
     >
       <div class="demo-image__lazy">
         <el-image
@@ -44,9 +42,8 @@
 
     <el-col :xs="0" :md="8" :lg="8" :xl="8">
     <ul 
-    v-infinite-scroll="load"
-    infinite-scroll-disabled
-    infinite-scroll-delay="2000"
+    v-infinite-scroll="loadB"
+    infinite-scroll-distance="1000"
     >
       <div class="demo-image__lazy">
         <el-image
@@ -76,11 +73,9 @@ onMounted(() => {
   piclist(urls)
   piclist(urlsA)
   piclist(urlsB)
-});
+})
 
 var loading = ref(true)
-
-var loaddisabled = ref(false)
 
 var urls = ref([])
 
@@ -95,31 +90,35 @@ function loadingfun(){
 
 // 底部加载
 function load(){
-  console.log("底部加载")
   addpic(urls)
-  // addpic(urlsA)
-  // addpic(urlsB)
 }
 
+function loadA() {
+    addpic(urlsA)
+}
+
+function loadB() {
+    addpic(urlsB)
+}
 // 非R18数组
 function piclist(urllist){
-  axios.get("https://i.fs233.cc/setu?type=json&num=20").then(
+  axios.get("https://sakura.iw233.cn/API/list/acg/json.php").then(
     (res)=>{
-      urllist.value = res.data.msg
+      urllist.value = res.data.data
     }
   )
 }
 
 // 底部加载增加图片
 function addpic(urllist){
-  axios.get("https://i.fs233.cc/setu?type=json&num=20").then(
+  axios.get("https://sakura.iw233.cn/API/list/acg/json.php").then(
     (res)=>{
-      urllist.value.push(res.data.msg[1])
+      urllist.value.push(res.data.data[1])
     }
   )
 }
 
-// 涩图链接数组生成
+// 涩图链接数组生成（R18）
 function fortxt() {
   // 总涩图数
   var num = 262
@@ -133,7 +132,6 @@ function fortxt() {
     var t3 = t1 + String(i) + t2;
 
     urls.push(t3);
-
   }
 
   return urls;
