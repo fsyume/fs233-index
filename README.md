@@ -1,3 +1,5 @@
-# Vue 3 + Vite
+# fs233 API Index
 
-> 图床展示页面
+> [fs233 API](http://fs233.cc)展示页面
+
+**构建由：Vue 3 + Vite**
