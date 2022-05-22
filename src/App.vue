@@ -1,65 +1,65 @@
 <template>
   <div v-infinite-scroll="load" infinite-scroll-immediate="false">
-  <el-row :gutter="10">
-    <el-col :xs="24" :md="8" :lg="8">
-      <div class="demo-image__lazy">
-        <el-image
-          v-loading="loading"
-          v-for="url in urls"
-          :key="url"
-          :src="url"
-          :preview-src-list="urls"
-          :initial-index="urls.indexOf(url)"
-          @load="loadingfun()"
-          lazy
-        />
-      </div>
-    </el-col>
+    <el-row :gutter="10">
+      <el-col :xs="24" :md="8" :lg="8">
+        <div class="demo-image__lazy">
+          <el-image
+              v-loading="loading"
+              v-for="url in urls"
+              :key="url"
+              :src="url"
+              :preview-src-list="urls"
+              :initial-index="urls.indexOf(url)"
+              @load="loadingfun()"
+              lazy
+          />
+        </div>
+      </el-col>
 
-    <el-col :xs="0" :md="8" :lg="8" :xl="8">
-      <div class="demo-image__lazy">
-        <el-image
-          v-loading="loading"
-          v-for="url in urlsA"
-          :key="url"
-          :src="url"
-          :preview-src-list="urlsA"
-          :initial-index="urlsA.indexOf(url)"
-          @load="loadingfun"
-          lazy
-        />
-      </div>
-    </el-col>
+      <el-col :xs="0" :md="8" :lg="8" :xl="8">
+        <div class="demo-image__lazy">
+          <el-image
+              v-loading="loading"
+              v-for="url in urlsA"
+              :key="url"
+              :src="url"
+              :preview-src-list="urlsA"
+              :initial-index="urlsA.indexOf(url)"
+              @load="loadingfun"
+              lazy
+          />
+        </div>
+      </el-col>
 
-    <el-col :xs="0" :md="8" :lg="8" :xl="8">
-      <div class="demo-image__lazy">
-        <el-image
-          v-loading="loading"
-          v-for="url in urlsB"
-          :key="url"
-          :src="url"
-          :preview-src-list="urlsB"
-          :initial-index="urlsB.indexOf(url)"
-          @load="loadingfun"
-          lazy
-        />
-      </div>
-    </el-col>
-  </el-row>
-    </div>
+      <el-col :xs="0" :md="8" :lg="8" :xl="8">
+        <div class="demo-image__lazy">
+          <el-image
+              v-loading="loading"
+              v-for="url in urlsB"
+              :key="url"
+              :src="url"
+              :preview-src-list="urlsB"
+              :initial-index="urlsB.indexOf(url)"
+              @load="loadingfun"
+              lazy
+          />
+        </div>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import { ElNotification } from "element-plus";
+import {onMounted, ref} from "vue";
+import {ElNotification} from "element-plus";
 import axios from "axios"
 
 // 生命周期函数
 onMounted(() => {
   open()
   piclist(urls)
-  // piclist(urlsA)
-  // piclist(urlsB)
+  piclist(urlsA)
+  piclist(urlsB)
 });
 
 var loading = ref(true)
@@ -71,12 +71,12 @@ var urlsA = ref([])
 var urlsB = ref([])
 
 
-function loadingfun(){
+function loadingfun() {
   loading.value = false
 }
 
 // 底部加载
-function load(){
+function load() {
   console.log("底部加载")
   addpic(urls)
   addpic(urlsA)
@@ -84,25 +84,25 @@ function load(){
 }
 
 // 非R18数组
-function piclist(urllist){
+function piclist(urllist) {
   axios.get("https://i.fs233.cc/setu?type=json&num=20").then(
-    (res)=>{
-      urllist.value = res.data.msg
-    }
+      (res) => {
+        urllist.value = res.data.msg
+      }
   )
 }
 
 // 底部加载增加图片
-function addpic(urllist){
+function addpic(urllist) {
   axios.get("https://i.fs233.cc/setu?type=json&num=20").then(
-    (res)=>{
-      let list = res.data.msg
+      (res) => {
+        let list = res.data.msg
 
-      for(let i in list){
-        console.log("for in 循环"+list[i])
-        urllist.value.push(list[i])
+        for (let i in list) {
+          console.log("for in 循环" + list[i])
+          urllist.value.push(list[i])
+        }
       }
-    }
   )
 }
 
@@ -138,7 +138,7 @@ function shuffle(array) {
     //把随机到的数字放入新数组中,并从原数组中删除
     copy.push(array.splice(index, 1)[0]);
   }
-  return copy.slice(0,1);
+  return copy.slice(0, 1);
 }
 
 const open = () => {
