@@ -1,7 +1,7 @@
 {
   "name": "fs233-index",
   "private": true,
-  "version": "1.0",
+  "version": "v0.3-Beta-dev",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
