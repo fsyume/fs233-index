@@ -1,5 +1,5 @@
 <template>
-  <div v-infinite-scroll="load" infinite-scroll-immediate="false">
+  <div v-infinite-scroll="load" infinite-scroll-immediate="false" infinite-scroll-distance="1000">
     <el-row :gutter="10">
       <el-col :xs="24" :md="8" :lg="8">
         <div class="demo-image__lazy">
@@ -85,7 +85,7 @@ function load() {
 
 // 非R18数组
 function piclist(urllist) {
-  axios.get("https://i.fs233.cc/setu?type=json&num=20").then(
+  axios.get("https://i.fs233.cc/setu?type=json&num=10&pq=2").then(
       (res) => {
         urllist.value = res.data.msg
       }
@@ -94,7 +94,7 @@ function piclist(urllist) {
 
 // 底部加载增加图片
 function addpic(urllist) {
-  axios.get("https://i.fs233.cc/setu?type=json&num=20").then(
+  axios.get("https://i.fs233.cc/setu?type=json&num=10&pq=2").then(
       (res) => {
         let list = res.data.msg
 
@@ -146,7 +146,7 @@ const open = () => {
   ElNotification({
     dangerouslyUseHTMLString: true,
     title: "Tip",
-    message: "<div style='color:red'>原图，巨大流量警告！！！</div>",
+    message: "<div style='color:red'>测试站点，非原图</div>",
     duration: 0
   });
 };
