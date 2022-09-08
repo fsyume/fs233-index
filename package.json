@@ -1,11 +1,32 @@
 {
   "name": "fs233-index",
   "private": true,
-  "version": "v0.3-Beta-dev",
+  "version": "0.3.0",
+  "main": "src/main/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "e": "electron .",
+    "eb": "electron-builder"
+  },
+  "build": {
+    "productName": "fs233-index",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "win": {
+      "icon": "",
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ]
+    }
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -14,6 +35,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
+    "electron": "^20.0.3",
+    "electron-builder": "^23.3.3",
     "unplugin-auto-import": "^0.7.1",
     "unplugin-vue-components": "^0.19.3",
     "vite": "^2.9.5"

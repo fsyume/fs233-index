@@ -14,5 +14,9 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     })
-  ]
+  ],
+  server: {
+    port:3000
+  },
+  base: './' // 从相对路径加载
 })
